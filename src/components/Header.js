@@ -1,5 +1,8 @@
 import Link from "next/link";
 import React, { Fragment } from "react";
+import { FaFacebook } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { FaInstagram } from "react-icons/fa";
 
 const Header = () => {
   return (
@@ -10,9 +13,9 @@ const Header = () => {
             At Activity care services “Engaging is our calling”
           </h2>
           <div className="bg-red-500 py-3 px-3 flex gap-5 justify-center items-center">
-            <p>Facebook</p>
-            <p>Facebook</p>
-            <p>Facebook</p>
+            <FaFacebook />
+            <FaXTwitter />
+            <FaInstagram />
           </div>
         </div>
       </section>

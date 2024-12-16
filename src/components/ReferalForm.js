@@ -8,6 +8,11 @@ import Participant from "./Participant";
 import NDIS from "./NDIS";
 import Billing from "./Billing";
 import Summary from "./Summary";
+import { FaUser } from "react-icons/fa";
+import { FaPeopleGroup } from "react-icons/fa6";
+import { RiHealthBookLine } from "react-icons/ri";
+import { FaMoneyBill } from "react-icons/fa";
+import { LuBookCheck } from "react-icons/lu";
 
 const ReferalForm = () => {
   const [formNav, setFormNavigation] = useState({
@@ -16,11 +21,11 @@ const ReferalForm = () => {
     title: "About Yourself",
   });
   const titleList = [
-    { id: 1, icon: "A", title: "About Yourself" },
-    { id: 2, icon: "A", title: "Participant Details" },
-    { id: 3, icon: "A", title: "NDIS Details" },
-    { id: 4, icon: "A", title: "Billing" },
-    { id: 5, icon: "A", title: "Summary" },
+    { id: 1, icon: <FaUser />, title: "About Yourself" },
+    { id: 2, icon: <FaPeopleGroup />, title: "Participant Details" },
+    { id: 3, icon: <RiHealthBookLine />, title: "NDIS Details" },
+    { id: 4, icon: <FaMoneyBill />, title: "Billing" },
+    { id: 5, icon: <LuBookCheck />, title: "Summary" },
   ];
 
   const pageNavHandler = (type) => {
@@ -40,6 +45,8 @@ const ReferalForm = () => {
         break;
     }
   };
+
+  const formSubmissionHandler = () => {};
   const [forminput, setFormInput] = useState({
     about: {
       about_1: [],
@@ -409,7 +416,6 @@ const ReferalForm = () => {
       break;
 
     default:
-      output = formNav.title;
       break;
   }
   return (
@@ -432,7 +438,7 @@ const ReferalForm = () => {
           <div className="bg-gray-50 py-5 px-3 shadow-sm rounded-sm">
             {output}
           </div>
-          <div className="flex justify-between">
+          <div className="flex justify-between w-2/3 mx-auto my-0">
             <div onClick={() => pageNavHandler("Prev")}>
               <Button>Prev</Button>
             </div>
@@ -441,7 +447,9 @@ const ReferalForm = () => {
                 <Button>Next</Button>
               </div>
             ) : (
-              <Button>Submit Form</Button>
+              <div onClick={() => formSubmissionHandler()}>
+                <Button>Submit Form</Button>
+              </div>
             )}
           </div>
         </div>

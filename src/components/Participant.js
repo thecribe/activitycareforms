@@ -28,7 +28,7 @@ const Participant = ({ title, handler, entries, radioHandler }) => {
   return (
     <Fragment>
       <div className="flex flex-col gap-5">
-        <h3 className="text-center border-b-2 pb-5">{title}</h3>
+        <h3 className="text-center border-b-2 pb-5 uppercase">{title}</h3>
         <div className="w-full flex justify-center items-center">
           <div className="text-sm w-2/3 flex flex-col divide-y-2 items-center gap-5 p-5 shadow-sm rounded-md bg-white">
             <div className="flex flex-col gap-5 w-full py-2">

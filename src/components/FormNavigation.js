@@ -5,8 +5,8 @@ const FormNavigation = ({ handler, formNav, navList }) => {
   return (
     <Fragment>
       <div className="relative  w-full mt-5">
-        <div className="border absolute left-[10%] rounded-lg w-4/5 bg-white">
-          <div className="w-4/4 bg-green-600 py-1 rounded-lg"></div>
+        <div className="border absolute left-[10%] rounded-lg w-4/5 py-1  bg-white">
+          {/* <div className="w-4/4 bg-green-600 py-1 rounded-lg"></div> */}
         </div>
         <div className="flex justify-between absolute w-4/5 left-[10%] mt-[-20px]">
           {navList &&
@@ -20,11 +20,11 @@ const FormNavigation = ({ handler, formNav, navList }) => {
                   <div
                     className={`${
                       formNav.id === list.id
-                        ? "bg-green-600 text-white"
+                        ? "bg-green-600 text-white hover:bg-green-600"
                         : "bg-white"
                     }  hover:bg-gray-50 flex justify-center items-center border w-[50px] h-[50px] text-center rounded-full p-2`}
                   >
-                    <p className="  ">{list.icon}</p>
+                    {list.icon}
                   </div>
                   <p className="text-xs">{list.title}</p>
                 </div>
