@@ -1,17 +1,25 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 
-const About = ({ title, handler, entries }) => {
+const About = ({ title, handler, entries, radioHandler }) => {
+  const [selectedOption, setSelectedOption] = useState({ type: null });
   const formOptions = {
     about_1: [
       "Participant",
-      "Parent",
-      "Family Member / Next of Kin",
+      "Nominee (Decision Maker)",
       "Support Coordinator",
-      "Local Area Coordinator",
-      "Plan Manager",
-      "Early Intervention Partner",
+      "Others",
     ],
   };
+
+  useEffect(() => {
+    if (selectedOption.type) {
+      radioHandler(selectedOption.type, "about_1");
+    }
+  }, [selectedOption]);
+
+  useEffect(() => {
+    setSelectedOption({ ...selectedOption, type: entries.about_1 });
+  }, []);
   return (
     <Fragment>
       <div className="flex flex-col gap-5">
@@ -27,14 +35,16 @@ const About = ({ title, handler, entries }) => {
                   return (
                     <div key={index} className="flex gap-2">
                       <input
-                        type="checkbox"
-                        id={index}
+                        type="radio"
+                        id={`about${index}`}
                         name="about_1"
-                        checked={entries.about_1.includes(index.toString())}
+                        checked={selectedOption.type === option}
                         value={option}
-                        onChange={(e) => handler(e)}
+                        onChange={(e) =>
+                          setSelectedOption({ ...selectedOption, type: option })
+                        }
                       />
-                      <label>{option}</label>
+                      <label htmlFor={`about${index}`}>{option}</label>
                     </div>
                   );
                 })}
@@ -69,12 +79,11 @@ const About = ({ title, handler, entries }) => {
                 </div>
               </div>
             </div>
-            {["3", "4", "5", "6"].some((item) =>
-              entries.about_1.includes(item)
-            ) ? (
+            {selectedOption.type === "Nominee (Decision Maker)" ||
+            selectedOption.type === "Others" ? (
               <div className="flex flex-col gap-5 w-full py-2">
                 <label className="font-semibold">
-                  Company Name<span className="text-red-700 font-bold">*</span>
+                  Position<span className="text-red-700 font-bold">*</span>
                 </label>
                 <div className="flex gap-5 items-center ">
                   <div className="flex flex-col gap-2 w-2/3">

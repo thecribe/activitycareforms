@@ -49,7 +49,8 @@ const ReferalForm = () => {
   const formSubmissionHandler = () => {};
   const [forminput, setFormInput] = useState({
     about: {
-      about_1: [],
+      about_1: "",
+
       about_2: { firstName: "", lastName: "" },
       about_3: "",
       about_4: "",
@@ -60,7 +61,7 @@ const ReferalForm = () => {
       participant_2: "",
       participant_3: "",
       participant_4: "",
-      participant_5: { address: "", suburb: "", postCode: "" },
+      participant_5: { address: "", postCode: "" },
       participant_6: "",
       participant_7: "",
     },
@@ -80,29 +81,29 @@ const ReferalForm = () => {
 
   const forminputHandler = (e) => {
     switch (e.target.name) {
-      case "about_1":
-        const index = forminput.about.about_1.indexOf(e.target.id.toString());
+      // case "about_1":
+      //   const index = forminput.about.about_1.indexOf(e.target.id.toString());
 
-        if (index !== -1) {
-          let newAboutArr1 = [...forminput.about.about_1];
-          newAboutArr1.splice(index, 1);
-          setFormInput({
-            ...forminput,
-            about: {
-              ...forminput.about,
-              about_1: [...newAboutArr1],
-            },
-          });
-        } else {
-          setFormInput({
-            ...forminput,
-            about: {
-              ...forminput.about,
-              about_1: [...forminput.about.about_1, e.target.id],
-            },
-          });
-        }
-        break;
+      //   if (index !== -1) {
+      //     let newAboutArr1 = [...forminput.about.about_1];
+      //     newAboutArr1.splice(index, 1);
+      //     setFormInput({
+      //       ...forminput,
+      //       about: {
+      //         ...forminput.about,
+      //         about_1: [...newAboutArr1],
+      //       },
+      //     });
+      //   } else {
+      //     setFormInput({
+      //       ...forminput,
+      //       about: {
+      //         ...forminput.about,
+      //         about_1: [...forminput.about.about_1, e.target.id],
+      //       },
+      //     });
+      //   }
+      //   break;
       case "about_2":
         if (e.target.value.length > 0) {
           switch (e.target.id) {
@@ -238,18 +239,18 @@ const ReferalForm = () => {
                 },
               });
               break;
-            case "suburb":
-              setFormInput({
-                ...forminput,
-                participant: {
-                  ...forminput.participant,
-                  participant_5: {
-                    ...forminput.participant.participant_5,
-                    suburb: e.target.value,
-                  },
-                },
-              });
-              break;
+            // case "suburb":
+            //   setFormInput({
+            //     ...forminput,
+            //     participant: {
+            //       ...forminput.participant,
+            //       participant_5: {
+            //         ...forminput.participant.participant_5,
+            //         suburb: e.target.value,
+            //       },
+            //     },
+            //   });
+            //   break;
             case "postCode":
               setFormInput({
                 ...forminput,
@@ -347,6 +348,15 @@ const ReferalForm = () => {
   // handler radio button
   const radioButtonHandler = (input, form_id) => {
     switch (form_id) {
+      case "about_1":
+        setFormInput({
+          ...forminput,
+          about: {
+            ...forminput.about,
+            about_1: input,
+          },
+        });
+        break;
       case "participant_7":
         setFormInput({
           ...forminput,
@@ -379,6 +389,7 @@ const ReferalForm = () => {
           title={formNav.title}
           handler={forminputHandler}
           entries={forminput.about}
+          radioHandler={radioButtonHandler}
         />
       );
       break;
@@ -412,12 +423,13 @@ const ReferalForm = () => {
       );
       break;
     case 5:
-      output = <Summary entries={forminput} />;
+      output = <Summary entries={forminput} title={formNav.title} />;
       break;
 
     default:
       break;
   }
+  console.log(forminput.about);
   return (
     <Fragment>
       <section className="bg-white-50 w-full py-5">

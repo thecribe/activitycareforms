@@ -17,6 +17,7 @@ const Billing = ({ title, radioHandler, entries, handler }) => {
   useEffect(() => {
     setSelectedOption({ ...selectedOption, type: entries.type });
   }, []);
+
   return (
     <Fragment>
       <div className="flex flex-col gap-5">
@@ -51,27 +52,31 @@ const Billing = ({ title, radioHandler, entries, handler }) => {
             {selectedOption.type === "Self Managed" ||
             selectedOption.type === "Plan Managed" ? (
               <div className="w-full">
-                <div className="flex flex-col gap-5 w-full py-2">
-                  <label className="font-semibold">
-                    Billing Contact Name
-                    <span className="text-red-700 font-bold">*</span>
-                  </label>
-                  <div className="flex gap-5 items-center ">
-                    <div className="flex flex-col gap-2 w-2/3">
-                      <input
-                        type="text"
-                        id="billing-contact"
-                        name="contact_name"
-                        className="border border-gray-300 outline-none py-2 px-1 rounded-md"
-                        value={entries.contact_name}
-                        onChange={(e) => handler(e)}
-                      />
+                {selectedOption.type === "Self Managed" && (
+                  <div className="flex flex-col gap-5 w-full py-2">
+                    <label className="font-semibold">
+                      Billing Contact Name
+                      <span className="text-red-700 font-bold">*</span>
+                    </label>
+                    <div className="flex gap-5 items-center ">
+                      <div className="flex flex-col gap-2 w-2/3">
+                        <input
+                          type="text"
+                          id="billing-contact"
+                          name="contact_name"
+                          className="border border-gray-300 outline-none py-2 px-1 rounded-md"
+                          value={entries.contact_name}
+                          onChange={(e) => handler(e)}
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
                 <div className="flex flex-col gap-5 w-full py-2">
                   <label className="font-semibold">
-                    Billing Company Name
+                    {selectedOption.type === "Self Managed"
+                      ? "Billing Company Name"
+                      : "Plan Manager"}
                     <span className="text-red-700 font-bold">*</span>
                   </label>
                   <div className="flex gap-5 items-center ">
@@ -89,7 +94,10 @@ const Billing = ({ title, radioHandler, entries, handler }) => {
                 </div>
                 <div className="flex flex-col gap-5 w-full py-2">
                   <label className="font-semibold">
-                    Billing Contact Email
+                    {selectedOption.type === "Self Managed"
+                      ? " Billing Contact Email"
+                      : "Plan Manager Email"}
+
                     <span className="text-red-700 font-bold">*</span>
                   </label>
                   <div className="flex gap-5 items-center ">
@@ -107,7 +115,10 @@ const Billing = ({ title, radioHandler, entries, handler }) => {
                 </div>
                 <div className="flex flex-col gap-5 w-full py-2">
                   <label className="font-semibold">
-                    Billing contact Phone Number
+                    {selectedOption.type === "Self Managed"
+                      ? " Billing Phone Number"
+                      : "Plan Manager Phone Number"}
+
                     <span className="text-red-700 font-bold">*</span>
                   </label>
                   <div className="flex gap-5 items-center ">

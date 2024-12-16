@@ -137,7 +137,7 @@ const Participant = ({ title, handler, entries, radioHandler }) => {
             <div className="flex flex-col gap-5 w-full py-2">
               <label className="font-semibold">
                 Participant Email
-                <span className="text-red-700 font-bold">*</span>
+                {/* <span className="text-red-700 font-bold">*</span> */}
               </label>
               <div className="flex gap-5 items-center ">
                 <div className="flex flex-col gap-2 w-2/3">
@@ -155,7 +155,7 @@ const Participant = ({ title, handler, entries, radioHandler }) => {
             <div className="flex flex-col gap-5 w-full py-2">
               <label className="font-semibold">
                 Participant Phone Number
-                <span className="text-red-700 font-bold">*</span>
+                {/* <span className="text-red-700 font-bold">*</span> */}
               </label>
               <div className="flex gap-5 items-center ">
                 <div className="flex flex-col gap-2 w-2/3">
@@ -188,17 +188,7 @@ const Participant = ({ title, handler, entries, radioHandler }) => {
                   <label>Street Address</label>
                 </div>
               </div>
-              <div className="flex flex-col gap-2 w-2/3">
-                <input
-                  type="text"
-                  id="suburb"
-                  name="participant_5"
-                  className="border border-gray-300 outline-none py-2 px-1 rounded-md"
-                  value={entries.participant_5.suburb}
-                  onChange={(e) => handler(e)}
-                />
-                <label>Suburb</label>
-              </div>
+
               <div className="flex flex-col gap-2 w-2/3">
                 <input
                   type="text"
@@ -213,7 +203,7 @@ const Participant = ({ title, handler, entries, radioHandler }) => {
             </div>
             <div className="flex flex-col gap-5 w-full py-2">
               <label className="font-semibold">
-                Participant Address - State
+                State
                 <span className="text-red-700 font-bold">*</span>
               </label>
               <div className="flex gap-5 items-center ">
