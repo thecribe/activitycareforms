@@ -7,13 +7,39 @@ import Button from "./Button";
 import Participant from "./Participant";
 import NDIS from "./NDIS";
 import Billing from "./Billing";
+import Summary from "./Summary";
 
 const ReferalForm = () => {
   const [formNav, setFormNavigation] = useState({
     id: 1,
+    icon: "A",
     title: "About Yourself",
   });
+  const titleList = [
+    { id: 1, icon: "A", title: "About Yourself" },
+    { id: 2, icon: "A", title: "Participant Details" },
+    { id: 3, icon: "A", title: "NDIS Details" },
+    { id: 4, icon: "A", title: "Billing" },
+    { id: 5, icon: "A", title: "Summary" },
+  ];
 
+  const pageNavHandler = (type) => {
+    switch (type) {
+      case "Prev":
+        if (formNav.id > 1) {
+          setFormNavigation(titleList[formNav.id - 2]);
+        }
+        break;
+      case "Next":
+        if (formNav.id < 5) {
+          setFormNavigation(titleList[formNav.id]);
+        }
+        break;
+
+      default:
+        break;
+    }
+  };
   const [forminput, setFormInput] = useState({
     about: {
       about_1: [],
@@ -337,7 +363,7 @@ const ReferalForm = () => {
         break;
     }
   };
-  console.log(forminput.billing);
+
   let output;
   switch (formNav.id) {
     case 1:
@@ -379,7 +405,7 @@ const ReferalForm = () => {
       );
       break;
     case 5:
-      output = formNav.title;
+      output = <Summary entries={forminput} />;
       break;
 
     default:
@@ -399,6 +425,7 @@ const ReferalForm = () => {
               handler={(input) => {
                 setFormNavigation(input);
               }}
+              navList={titleList}
               formNav={formNav}
             />
           </div>
@@ -406,12 +433,16 @@ const ReferalForm = () => {
             {output}
           </div>
           <div className="flex justify-between">
-            <Link href="#">
+            <div onClick={() => pageNavHandler("Prev")}>
               <Button>Prev</Button>
-            </Link>
-            <Link href="#">
-              <Button>Next</Button>
-            </Link>
+            </div>
+            {formNav.id !== 5 ? (
+              <div onClick={() => pageNavHandler("Next")}>
+                <Button>Next</Button>
+              </div>
+            ) : (
+              <Button>Submit Form</Button>
+            )}
           </div>
         </div>
       </section>
