@@ -28,6 +28,9 @@ const ReferalForm = () => {
     { id: 5, icon: <LuBookCheck />, title: "Summary" },
   ];
 
+  const editHandler = (type) => {
+    setFormNavigation(titleList[type - 1]);
+  };
   const pageNavHandler = (type) => {
     switch (type) {
       case "Prev":
@@ -423,7 +426,13 @@ const ReferalForm = () => {
       );
       break;
     case 5:
-      output = <Summary entries={forminput} title={formNav.title} />;
+      output = (
+        <Summary
+          entries={forminput}
+          title={formNav.title}
+          editHandler={editHandler}
+        />
+      );
       break;
 
     default:
