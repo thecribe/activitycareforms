@@ -11,7 +11,7 @@ const Summary = ({ title, entries, editHandler }) => {
           {title + " OF YOUR ENTRIES"}
         </h3>
         <div className="w-full flex justify-center items-center">
-          <div className="text-sm w-2/3 flex flex-col divide-y-2  gap-5 p-5 shadow-sm rounded-md bg-white">
+          <div className="text-sm w-full md:w-2/3 flex flex-col divide-y-2  gap-5 p-5 shadow-sm rounded-md bg-white">
             <div className="flex flex-col gap-5">
               <div className="flex justify-between items-center border-b-2 border-blue-900 pb-2">
                 <h2 className="text-blue-900 font-semibold">

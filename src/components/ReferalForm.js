@@ -84,29 +84,6 @@ const ReferalForm = () => {
 
   const forminputHandler = (e) => {
     switch (e.target.name) {
-      // case "about_1":
-      //   const index = forminput.about.about_1.indexOf(e.target.id.toString());
-
-      //   if (index !== -1) {
-      //     let newAboutArr1 = [...forminput.about.about_1];
-      //     newAboutArr1.splice(index, 1);
-      //     setFormInput({
-      //       ...forminput,
-      //       about: {
-      //         ...forminput.about,
-      //         about_1: [...newAboutArr1],
-      //       },
-      //     });
-      //   } else {
-      //     setFormInput({
-      //       ...forminput,
-      //       about: {
-      //         ...forminput.about,
-      //         about_1: [...forminput.about.about_1, e.target.id],
-      //       },
-      //     });
-      //   }
-      //   break;
       case "about_2":
         if (e.target.value.length > 0) {
           switch (e.target.id) {
@@ -438,28 +415,30 @@ const ReferalForm = () => {
     default:
       break;
   }
-  console.log(forminput.about);
+
   return (
     <Fragment>
-      <section className="bg-white-50 w-full py-5">
-        <div className=" w-2/3 mx-auto my-0 flex flex-col gap-5">
-          <div className="bg-gray-50 h-[15vh] py-5 px-3 shadow-sm rounded-sm flex flex-col gap-3">
+      <section className="bg-white w-full py-5 px-5 ">
+        <div className=" md:w-2/3 mx-auto my-0 flex flex-col gap-5">
+          <div className="bg-gray-50 h-fit md:h-[15vh] py-5 px-3 shadow-sm rounded-sm flex flex-col gap-3">
             <div className="flex gap-2 items-center text-blue-900 font-semibold">
               <h3>{`Step ${formNav.id} of 5`}</h3>
               <h3>{formNav.title}</h3>
             </div>
-            <FormNavigation
-              handler={(input) => {
-                setFormNavigation(input);
-              }}
-              navList={titleList}
-              formNav={formNav}
-            />
+            <div className="hidden md:block">
+              <FormNavigation
+                handler={(input) => {
+                  setFormNavigation(input);
+                }}
+                navList={titleList}
+                formNav={formNav}
+              />
+            </div>
           </div>
           <div className="bg-gray-50 py-5 px-3 shadow-sm rounded-sm">
             {output}
           </div>
-          <div className="flex justify-between w-2/3 mx-auto my-0">
+          <div className="flex justify-between w-full px-5 md:w-2/3 mx-auto my-0">
             <div onClick={() => pageNavHandler("Prev")}>
               <Button>Prev</Button>
             </div>

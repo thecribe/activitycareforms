@@ -6,7 +6,7 @@ const Cover = ({ page_title, page_description }) => {
       <section className="bg-gray-200 w-full">
         <div className="h-[30vh] w-2/3 mx-auto gap-3 my-0 flex flex-col justify-center items-center">
           <h4 className="uppercase text-xs text-red-800">{page_title}</h4>
-          <h2 className="uppercase text-lg text-blue-900 font-semibold">
+          <h2 className="uppercase text-lg text-blue-900 font-semibold text-center">
             {page_description}
           </h2>
         </div>

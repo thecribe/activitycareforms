@@ -25,7 +25,7 @@ const About = ({ title, handler, entries, radioHandler }) => {
       <div className="flex flex-col gap-5">
         <h3 className="text-center border-b-2 pb-5 uppercase">{title}</h3>
         <div className="w-full flex justify-center items-center">
-          <div className="text-sm w-2/3 flex flex-col divide-y-2 items-center gap-5 p-5 shadow-sm rounded-md bg-white">
+          <div className="text-sm w-full md:w-2/3 flex flex-col divide-y-2 items-center gap-5 p-5 shadow-sm rounded-md bg-white">
             <div className="flex flex-col gap-5 w-full py-2">
               <label className="font-semibold">
                 Please select what describes you best?
@@ -54,8 +54,8 @@ const About = ({ title, handler, entries, radioHandler }) => {
               <label className="font-semibold">
                 Name<span className="text-red-700 font-bold">*</span>
               </label>
-              <div className="flex gap-5 items-center ">
-                <div className="flex flex-col gap-2 w-1/2">
+              <div className="flex flex-col md:flex-row gap-5 md:items-center ">
+                <div className="flex flex-col gap-2 w-2/3 md:w-1/2">
                   <input
                     type="text"
                     id="firstName"
@@ -66,7 +66,7 @@ const About = ({ title, handler, entries, radioHandler }) => {
                   />
                   <label>First Name</label>
                 </div>
-                <div className="flex flex-col gap-2 w-1/2">
+                <div className="flex flex-col gap-2 w-2/3 md:w-1/2">
                   <input
                     type="text"
                     id="lastName"
