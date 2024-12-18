@@ -37,7 +37,9 @@ const Header = () => {
                 Privacy Policy
               </p>
             </div>
-            <p>Login</p>
+            <Link href={"/login"}>
+              <p>Login</p>
+            </Link>
           </div>
           {!mobileMenu && (
             <div
@@ -77,9 +79,13 @@ const Header = () => {
                     Privacy Policy
                   </p>
                 </div>
-                <p className="hover:text-blue-700 cursor-pointer uppercase">
-                  Login
-                </p>
+
+                <Link
+                  href={"/login"}
+                  className="hover:text-blue-700 cursor-pointer uppercase"
+                >
+                  <p>Login</p>
+                </Link>
               </div>
             </div>
           </div>

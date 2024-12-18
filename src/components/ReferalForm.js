@@ -13,6 +13,7 @@ import { FaPeopleGroup } from "react-icons/fa6";
 import { RiHealthBookLine } from "react-icons/ri";
 import { FaMoneyBill } from "react-icons/fa";
 import { LuBookCheck } from "react-icons/lu";
+import { formSubmission } from "@/app/utils/apiCalls";
 
 const ReferalForm = () => {
   const [formNav, setFormNavigation] = useState({
@@ -31,25 +32,7 @@ const ReferalForm = () => {
   const editHandler = (type) => {
     setFormNavigation(titleList[type - 1]);
   };
-  const pageNavHandler = (type) => {
-    switch (type) {
-      case "Prev":
-        if (formNav.id > 1) {
-          setFormNavigation(titleList[formNav.id - 2]);
-        }
-        break;
-      case "Next":
-        if (formNav.id < 5) {
-          setFormNavigation(titleList[formNav.id]);
-        }
-        break;
 
-      default:
-        break;
-    }
-  };
-
-  const formSubmissionHandler = () => {};
   const [forminput, setFormInput] = useState({
     about: {
       about_1: "",
@@ -81,6 +64,30 @@ const ReferalForm = () => {
       phone_number: "",
     },
   });
+
+  const pageNavHandler = (type) => {
+    switch (type) {
+      case "Prev":
+        if (formNav.id > 1) {
+          setFormNavigation(titleList[formNav.id - 2]);
+        }
+        break;
+      case "Next":
+        if (formNav.id < 5) {
+          setFormNavigation(titleList[formNav.id]);
+        }
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  const formSubmissionHandler = async () => {
+    const response = await formSubmission(forminput);
+
+    console.log(response.data);
+  };
 
   const forminputHandler = (e) => {
     switch (e.target.name) {
@@ -407,6 +414,7 @@ const ReferalForm = () => {
         <Summary
           entries={forminput}
           title={formNav.title}
+          editButton={true}
           editHandler={editHandler}
         />
       );
