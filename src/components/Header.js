@@ -1,12 +1,14 @@
 "use client";
 import Link from "next/link";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { FaFacebook } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaInstagram } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
+import { auth } from "@/auth";
+import { doUserLogout } from "@/app/utils/auth";
 
-const Header = () => {
+const Header = ({ session }) => {
   const [mobileMenu, setMobileMenu] = useState(false);
 
   return (
@@ -26,20 +28,42 @@ const Header = () => {
       <section className=" w-full py-4 border-b-2">
         <div className="w-full px-5 md:w-2/3 mx-auto my-0 flex  justify-between items-center">
           <div className="w-[150px] ">
-            <img src="/assets/Activity-Care-new-logo.png" />
+            <a href="https://activitycareservices.com.au/">
+              <img src="/assets/Activity-Care-new-logo.png" />
+            </a>
           </div>
           <div className="hidden text-blue-900 md:flex gap-5 justify-between items-center w-2/3 text-sm uppercase">
             <div className="flex justify-center items-center gap-5 ">
-              <p className="hover:text-blue-700 cursor-pointer uppercase">
-                FAQ
-              </p>
-              <p className="hover:text-blue-700 cursor-pointer uppercase">
-                Privacy Policy
-              </p>
+              <Link href="/">
+                <p className="hover:text-blue-700 cursor-pointer uppercase">
+                  Home
+                </p>
+              </Link>
+              <a href="https://activitycareservices.com.au/faq">
+                <p className="hover:text-blue-700 cursor-pointer uppercase">
+                  FAQ
+                </p>
+              </a>
+              <a href="https://activitycareservices.com.au/privacy-policy">
+                <p className="hover:text-blue-700 cursor-pointer uppercase">
+                  Privacy Policy
+                </p>
+              </a>
             </div>
-            <Link href={"/login"}>
-              <p>Login</p>
-            </Link>
+            {!session ? (
+              <Link href={"/login"}>
+                <p className="cursor-pointer">Login</p>
+              </Link>
+            ) : (
+              <div className=" flex gap-5 justify-center items-center">
+                <Link href="/dashboard">
+                  <p className="cursor-pointer">Dashboard</p>
+                </Link>
+                <p onClick={() => doUserLogout()} className="cursor-pointer">
+                  Logout
+                </p>
+              </div>
+            )}
           </div>
           {!mobileMenu && (
             <div

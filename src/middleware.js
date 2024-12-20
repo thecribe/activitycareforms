@@ -12,10 +12,10 @@ export async function middleware(request) {
   headers.set("origin", nextUrl.origin);
 
   //Chek if user is autheticated
-  // const session = await auth();
+  const session = await auth();
 
-  // const isAuthenticated = !!session?.user;
-  const isAuthenticated = true;
+  const isAuthenticated = !!session?.user;
+  // const isAuthenticated = true;
 
   const isPublicRoute = PUBLIC_ROUTES.find(
     (route) => nextUrl.pathname.startsWith(route) || nextUrl.pathname === ROOT
@@ -26,7 +26,11 @@ export async function middleware(request) {
   }
 
   if (isAuthenticated && nextUrl.pathname === LOGIN) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+    return NextResponse.redirect(new URL("/dashboard/entries", request.url));
+  }
+
+  if (isAuthenticated && nextUrl.pathname === "/dashboard") {
+    return NextResponse.redirect(new URL("/dashboard/entries", request.url));
   }
 }
 // See "Matching Paths" below to learn more

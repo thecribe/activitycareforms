@@ -1,8 +1,8 @@
 "use client";
 
+import { doUserLogin } from "@/app/utils/auth";
 import { formValidation } from "@/app/utils/InputValidation";
-// import { doUserLogin } from "@/app/utils/apiCalls/auth";
-// import { userLoginToken } from "@/app/utils/apiCalls/tokens";
+import { userLoginToken } from "@/app/utils/tokens";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -52,12 +52,12 @@ const LoginForm = () => {
     }
 
     try {
-      //   const userToken = await userLoginToken(
-      //     formInput.email.input,
-      //     formInput.password.input
-      //   );
-      //   userToken && (await doUserLogin(userToken));
-      //   router.push("/dashboard");
+      const userToken = await userLoginToken(
+        formInput.email.input,
+        formInput.password.input
+      );
+      userToken && (await doUserLogin(userToken));
+      router.push("/dashboard");
     } catch (error) {
       setLoading(false);
       setError("Please check your credentials");
@@ -80,7 +80,7 @@ const LoginForm = () => {
                 ...formInput,
                 email: {
                   ...formInput.email,
-                  input: e.target.value,
+                  input: e.target.value.trim().toLowerCase(),
                   errorMessage: "",
                 },
               })
@@ -111,7 +111,7 @@ const LoginForm = () => {
                 ...formInput,
                 password: {
                   ...formInput.email,
-                  input: e.target.value,
+                  input: e.target.value.trim(),
                   errorMessage: "",
                 },
               })

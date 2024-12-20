@@ -7,7 +7,7 @@ import { MdOutlineViewKanban } from "react-icons/md";
 import { getAllEntry } from "@/app/utils/apiCalls";
 import Modal from "../modal/Modal";
 import Summary from "../Summary";
-import Button from "../Button";
+import dayjs from "dayjs";
 
 const Content = () => {
   const [entries, setEntries] = useState([]);
@@ -17,8 +17,27 @@ const Content = () => {
 
   useEffect(() => {
     const getEntries = async () => {
+      let entryArray = [];
       const response = await getAllEntry();
-      setEntries(response);
+
+      if (response.data) {
+        response.data.forEach((entry) => {
+          const newObj = JSON.parse(entry.entry);
+          entryArray.push({
+            ...entry,
+            ...newObj,
+            date: dayjs(entry.createdAt).format("DD MMM YY HH:mm:ss"),
+          });
+        });
+      }
+
+      setEntries(
+        entryArray.sort((a, b) => new Date(b.date) - new Date(a.date))
+      );
+
+      if (entryArray.length === 0) {
+        setMessage({ ...error, status: true, message: "No entry " });
+      }
     };
 
     getEntries();

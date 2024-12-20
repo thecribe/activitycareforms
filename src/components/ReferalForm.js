@@ -14,6 +14,8 @@ import { RiHealthBookLine } from "react-icons/ri";
 import { FaMoneyBill } from "react-icons/fa";
 import { LuBookCheck } from "react-icons/lu";
 import { formSubmission } from "@/app/utils/apiCalls";
+import { formValidation } from "@/app/utils/InputValidation";
+import Modal from "./modal/Modal";
 
 const ReferalForm = () => {
   const [formNav, setFormNavigation] = useState({
@@ -21,6 +23,9 @@ const ReferalForm = () => {
     icon: "A",
     title: "About Yourself",
   });
+  const [error, setError] = useState({ status: false, message: "" });
+  const [modalToggle, setModalToggle] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const titleList = [
     { id: 1, icon: <FaUser />, title: "About Yourself" },
     { id: 2, icon: <FaPeopleGroup />, title: "Participant Details" },
@@ -84,9 +89,28 @@ const ReferalForm = () => {
   };
 
   const formSubmissionHandler = async () => {
-    const response = await formSubmission(forminput);
+    let output = false;
 
-    console.log(response.data);
+    output = formValidation.email(forminput.about.about_4);
+
+    if (!output) {
+      setError({
+        status: true,
+        message: "Please confirm and fill all field before submitting",
+      });
+
+      return null;
+    }
+
+    const response = await formSubmission(forminput, forminput.about.about_4);
+
+    if (!response.data) {
+      setModalToggle(true);
+      setErrorMessage(response.message);
+    }
+
+    setErrorMessage(response.message);
+    setModalToggle(true);
   };
 
   const forminputHandler = (e) => {
@@ -141,6 +165,7 @@ const ReferalForm = () => {
             about_4: e.target.value,
           },
         });
+        setError({ status: false, message: "" });
         break;
       case "about_5":
         setFormInput({
@@ -426,6 +451,20 @@ const ReferalForm = () => {
 
   return (
     <Fragment>
+      {modalToggle && (
+        <Modal
+          modal_title="Form Submission"
+          modalClose={() => setModalToggle(false)}
+          height="sm"
+        >
+          <div className="flex w-full justify-center items-center flex-col py-10 gap-5">
+            <p>{errorMessage}</p>
+            <div onClick={() => setModalToggle(false)}>
+              <Button>Return to form</Button>
+            </div>
+          </div>
+        </Modal>
+      )}
       <section className="bg-white w-full py-5 px-5 ">
         <div className=" md:w-2/3 mx-auto my-0 flex flex-col gap-5">
           <div className="bg-gray-50 h-fit md:h-[15vh] py-5 px-3 shadow-sm rounded-sm flex flex-col gap-3">
@@ -456,7 +495,7 @@ const ReferalForm = () => {
               </div>
             ) : (
               <div onClick={() => formSubmissionHandler()}>
-                <Button>Submit Form</Button>
+                <Button disabled={error.status}>Submit Form</Button>
               </div>
             )}
           </div>

@@ -1,8 +1,7 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-// import { userValidation } from "./app/utils/apiCalls/auth";
-
-// import { checkTokenValidity } from "./app/utils/apiCalls/tokens";
+import { userValidation } from "./app/utils/auth";
+import { checkTokenValidity } from "./app/utils/tokens";
 
 // Your own logic for dealing with plaintext password strings; be careful!
 
@@ -24,23 +23,21 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         let user = { credentials };
 
         // logic for user validation
-        // const response = await userValidation(email, password);
+        const response = await userValidation(email, password);
 
         if (response.status === false) {
           // No user found, so this is their first attempt to login
           // meaning this is also the place you could do registration
-          throw new Error("Please check your credentials");
+          throw new Error("Please check your credentials1");
         }
 
         // return user object with their profile data
         return {
           accessToken: response.accessToken,
           refreshToken: response.refreshToken,
-          userId: response.data.adminId,
-          name: response.data.name,
+          userId: response.data.id,
+          username: response.data.username,
           email: response.data.email,
-          role: { ...response.data.role },
-          institution: response.data.institution,
         };
       },
     }),
@@ -51,9 +48,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.accessToken = user.accessToken;
         token.refreshToken = user.refreshToken;
         token.id = user.userId;
-        token.name = user.name;
-        token.role = user.role;
-        token.institution = user.institution;
+        token.username = user.username;
 
         return token;
       }
@@ -63,17 +58,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
     async session({ session, token }) {
       try {
-        // const responseToken = await checkTokenValidity(
-        //   token.accessToken,
-        //   token.refreshToken
-        // );
+        const responseToken = await checkTokenValidity(
+          token.accessToken,
+          token.refreshToken
+        );
 
         if (responseToken.accessToken) {
           session.user.accessToken = responseToken.accessToken;
           session.user.id = token.id;
-          session.user.name = token.name;
-          session.user.role = token.role;
-          session.user.institution = token.institution;
+          session.user.username = token.username;
 
           return session;
         }

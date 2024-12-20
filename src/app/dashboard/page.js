@@ -1,6 +1,4 @@
-import Content from "@/components/dashboard/Content";
-import Sidebar from "@/components/dashboard/Sidebar";
-import React, { Fragment } from "react";
+import React from "react";
 
 const page = () => {
   return null;
